@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-
         <div class = "section-1">
-
           <div class="home-image">
               <img :src="'/images/4474421855_4b20643258_c.jpeg'">
 
@@ -10,12 +8,9 @@
                   Reading is dreaming with your eyes wide open
               </div>
           </div>
-          
         </div>
-  </div>
-  
+  </div>  
 </template>
-
 
 <style scoped>
 
@@ -70,7 +65,6 @@ img {
 
 }
 
-
 /* Masonry on small screens */
 @media only screen and (max-width: 767px) and (min-width: 340px) {
   .home-image {
@@ -87,6 +81,7 @@ img {
   }
 
 }
+
 
 </style>
 

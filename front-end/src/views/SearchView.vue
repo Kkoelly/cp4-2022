@@ -1,24 +1,25 @@
 <template>
     <div>  
         <h1>Search</h1>
-        <form>
+        <form @submit.prevent="search()">
             <input placeholder="Search for a Book" type="text" v-model="userSearch">
-            <input type="button" class="button" value="search" @click="search()">
-            <input type="button" class="button" value="GET ALL THOSE BOOKS" @click="getAllBooks()">
+            <input type="submit" class="button" value="search" @click="search()">
         </form>
+        <div v-if="!searchResults">
+            <p>No results found</p>
+        </div>
+        <div v-else>
         <div class="image" v-for="result in searchResults" :key="result.id">
-        <div class="rec-book"><img :src =result.volumeInfo.imageLinks.thumbnail></div>
+            <hr>
+            <div class="rec-book"><img :src=result.image></div>
 
-            <h2>{{result.volumeInfo.title}}</h2>
-            <p>{{result.volumeInfo.authors}}</p>
-            <!-- <button class="button" @click="addToDatabase(result)">Add To Database</button> -->
+            <h2>{{result.title}}</h2>
+            <p>{{result.author}}</p>
             <button class="button" @click="addToListFromSearch('completed', result)">Add To Completed List</button>
             <button class="button" @click="addToListFromSearch('favorites', result)">Add To Favorites List</button>
             <button class="button" @click="addToListFromSearch('booksToRead', result)">Add To Books To Read List</button>
-            <!-- <button class="button" @click="removeFromList('completed', result)">Remove Completed</button>
-            <button class="button" @click="removeFromList('favorites', result)">Remove Favorites</button>
-            <button class="button" @click="removeFromList('booksToRead', result)">Remove Reading List</button>
-             -->
+            <br>
+        </div>
         </div>
         
 
@@ -27,34 +28,32 @@
 </template>
 
 <script>
-import shared from '../shared.js'
 import axios from "axios"
 export default {
     name: "SearchView", 
-    created() { 
-      this.foo = shared.foo; // now you can call this.foo() (in your functions/template)
-    },
-    
     data() {
         return {
             searchResults: [],
-            KEY: "AIzaSyC3b16m7c_Z258vd4Q-KlwVcoH__WIJa44",
             userSearch: "",
             addItem: null,
-            result: "",
             whichList: "",
             bookID: null,
             jsonID: null,
-            
         }
     },
     
     methods: {
         async search() {
             try {
-                let myurl = "https://www.googleapis.com/books/v1/volumes?q=" + this.userSearch + "&key=" + this.KEY;
+                let myurl = "https://www.googleapis.com/books/v1/volumes?q=" + this.userSearch + "&key=AIzaSyC3b16m7c_Z258vd4Q-KlwVcoH__WIJa44";
                 let response = await axios.get(myurl);
-                this.searchResults = response.data.items;
+                this.searchResults = [];
+                for (let i = 0; i < response.data.items.length; i++) {
+                    let result = response.data.items[i];
+                    let book = {title: result.volumeInfo.title, author: result.volumeInfo.authors, image: result.volumeInfo.imageLinks.thumbnail,
+                        description: result.volumeInfo.description.substring(0, 200).concat("..."), id: result.id};
+                    this.searchResults.push(book)
+                }
                 return true;
             } catch (error) {
                 console.log(error);
@@ -83,8 +82,7 @@ export default {
             if (this.inDatabase.data != false){
                 this.bookID = this.inDatabase.data;
             } else {
-                let info = await this.addToDatabase(result);
-                console.log("this is info", info);
+                await this.addToDatabase(result);
             }
             this.whichList = whichList;
              
@@ -93,8 +91,6 @@ export default {
                     whichList: this.whichList,
                 });
                 this.bookID = null;
-                //this.findItem = null;
-                //this.getItems();
                 return true;
             } catch (error){
                 console.log(error);
@@ -136,14 +132,3 @@ export default {
     }
 }
 </script>
-
-
-<style scoped>
-/* 
-.myBook {
-    width: 500px;
-    height: 500px;
-    margin: 20px;
-    border: thick black 10px;
-} */
-</style>

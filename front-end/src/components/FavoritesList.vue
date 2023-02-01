@@ -11,7 +11,7 @@
                         <p>{{ book.description }}</p>
                     </div>
                     <button @click="removeFavItem(book)">Remove From Favorites List</button>                    
-                    <button @click="edit()">Edit it</button>
+                    <!-- <button @click="edit()">Edit it</button> -->
             </div>
             <br>
             <br>
@@ -52,12 +52,7 @@ export default {
             await this.removeFromList('favorites', book);
             await this.updateFavoritesList();
         },
-
-
     }
-
-
-
 }
 
 </script>

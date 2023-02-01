@@ -29,13 +29,13 @@
       </div>
     </nav>
 
+    <router-view/>
+
     <div class="navbar navbar-light bg-light fixed-bottom">
       <div class="container-fluid">
         <a class="navbar-brand" href="https://github.com/math919191/CreativeProject4">Source - Kelly Ko and R Daniels</a>
       </div>
     </div>
-    
-    <router-view/>
   </div>
 
   
@@ -115,16 +115,4 @@ h6 {
   margin: 5px 50px;
 }
 
-/* nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-} */
 </style>

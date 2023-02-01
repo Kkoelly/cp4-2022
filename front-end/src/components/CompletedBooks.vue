@@ -27,9 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import shared from '../shared.js'
-//import searchFunctions from '../views/SearchView.vue'
 export default {
     name: 'CompletedBooks',
     
@@ -37,29 +34,13 @@ export default {
         return {
           allBooks: [],
           myCompleted: [],
-
-            
         }
-    },
-
-    created() { 
-      this.foo = shared.foo; // now you can call this.foo() (in your functions/template)
-      //this.getAllBooks = searchFunctions.getAllBooks();
     },
     computed: {
         completedBooks() {
-            //return allBooks.filter(book => book.inCompletedList == true) 
-            //return this.$root.$data.completedBooks;
             return this.myCompleted;
         }
     },
-    methods: {
-      removeBook() {
-        console.log("here")
-        this.foo();
-        //this.$root.$data.completedBooks.splice(this.$root.$data.completedBooks.indexOf(book.id), 1);
-      },
-    }
 }
 </script>
 
@@ -120,4 +101,5 @@ button:active {
   /* box-shadow: 0 5px #666; */
   transform: translateY(4px);
 }
+
 </style>

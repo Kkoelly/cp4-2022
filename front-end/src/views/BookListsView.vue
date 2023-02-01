@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="buttons">
-            <button class="button" @click="switchComponent('favorites')">Favorites List</button>
-            <button class="button" @click="switchComponent('completed')">Completed List</button>
-            <button class="button" @click="switchComponent('booksToRead')">Reading List</button>            
+            <button class="button booklist-button" @click="switchComponent('booksToRead')">Reading List</button>  
+            <button class="button booklist-button" @click="switchComponent('favorites')">Favorites List</button>
+            <button class="button booklist-button" @click="switchComponent('completed')">Completed List</button>          
         </div>
         <component v-bind:is="dynamicComponent"></component>
 
@@ -41,4 +41,5 @@
     }
 
 </script>
+
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>This is the Completed List. These are some of my favorite books!</p>
+        <p>This is the Completed List. Here are all the books I've read!</p>
         
          <div v-for="book in this.myCompletedListComputed" :key="book.id">
             <div class="book">

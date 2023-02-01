@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -9,8 +10,7 @@ app.use(bodyParser.urlencoded({
 
 const mongoose = require('mongoose');
 
-const myUrl = "mongodb+srv://kelly:kelpy2K37K0!@cluster0.b4hfk.mongodb.net/books?retryWrites=true&w=majority";
-
+const myUrl = "mongodb+srv://" + process.env.MONGO_USER + ":" + process.env.MONGO_PASS + "@cluster0.ui9jzhd.mongodb.net/?retryWrites=true&w=majority";
 // connect to the database
 mongoose.connect(myUrl, {
   useNewUrlParser: true
@@ -110,10 +110,10 @@ mongoose.connect(myUrl, {
 
   app.post('/api/books', async (req, res) => {
     const book = new Book({
-      title: req.body.result.volumeInfo.title,
-      author: req.body.result.volumeInfo.authors,
-      description: req.body.result.volumeInfo.description,
-      coverImage: req.body.result.volumeInfo.imageLinks.thumbnail, //holds the api string to image
+      title: req.body.result.title,
+      author: req.body.result.author,
+      description: req.body.result.description,
+      coverImage: req.body.result.image, //holds the api string to image
       dateCompleted: "",
       notes: [],
       rating: 0,
@@ -202,4 +202,4 @@ mongoose.connect(myUrl, {
   
   });
 
-  app.listen(3000, () => console.log('Server listening on port 3000!'));
+  app.listen(3003, () => console.log('Server listening on port 3003!'));
